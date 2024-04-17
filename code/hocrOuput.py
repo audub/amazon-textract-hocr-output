@@ -151,7 +151,8 @@ def main(input_document_url):
     result_data = parse_results(textract_json)
     doc = render_html(result_data, img_width, img_height)
 
-    document_name = os.path.basename(input_document_url).split(".")[0]
+    document_name = os.path.splitext(input_document_url)[0]
+    document_name = document_name.split("/")[-1]
     with open(f'{document_name}.hocr', 'w') as f:
         print(indent(doc.getvalue()), file=f)
     print(f"Results printed out {document_name}.hocr")
